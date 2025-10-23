@@ -1,0 +1,31 @@
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+Thumbs.db
+.DS_Store
+
+# Logs, outputs, reports
+*.log
+reports/
+output/
+output/scenarios/
+
+# Wheels / offline packages (we'll exclude large pip downloads)
+ai_packages/
+offline-packages/
+
+# Large model files — DON'T add these to Git
+*.gguf
+*.bin
+models/

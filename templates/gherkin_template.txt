@@ -1,0 +1,70 @@
+Feature: Functionalitati generale
+
+  Background:
+    Given Aplicatia ruleaza
+
+      @MR_FG_001
+      Scenario: Testarea functionalitatii navigare la PAGINA PRINCIPALA
+        Given utilizatorul se afla pe o alta pagina decat PAGINA PRINCIPALA
+        When se actioneaza butonul HOME 'NUME APLICATIE'
+        Then utilizatorul este directionat catre PAGINA PRINCIPALA
+
+      @MR_FG_002
+      Scenario: Testarea butonului SIDEBAR
+        Given utilizatorul este autentificat cu rolul de administrator
+        When se actioneaza butonul SIDEBAR, pozitionat in partea de sus, langa denumirea aplicatie
+        Then meniul lateral este afisat/ascuns alternativ, in functie de starea sa initiala (daca era afisat devine ascus si invers)
+
+      @MR_FG_003
+      Scenario: Testarea butonului CONT UTILIZATOR
+        Given utilizatorul se afla pe Pagina Principala
+        When se actioneaza butonul CONT UTILIZATOR
+        Then in noua fereastra afisata sunt prezentate detalii referitoare la contul utilizatorului (ex. nume utilizator, rol, categorie)
+
+      @MR_FG_004
+      Scenario: Testarea afisarii rolului/rolurilor detinute
+        Given utilizatorul se afla pe Pagina Principala
+        When se actioneaza butonul SIDERBAR astfel incat meniul lateral sa fie afisat
+        Then rolul/rolurile detinute de utilizator sunt afisate in partea de sus a meniului lateral
+
+      @MR_FG_005
+      Scenario: Testarea functionalitatii NAVIGARE LISTA PAGINI
+        Given utilizatorul este autentificat cu rolul de OPERATOR
+        When se acceseaza pe rand, fiecare pagina care are disponibila functia de navigare lista pagini
+        When se acceseaza, pe rand, fiecare buton aferent paginii dorite (ex. 1,2,6, inainte)
+        Then aplicatia navigheaza la pagina selectata
+
+      @MR_FG_006
+      Scenario: Testarea functionalitatii FILTRE
+        Given utilizatorul este autentificat cu rolul de OPERATOR
+        When se acceseaza pe rand fiecare pagina care dispune de functionalitatea de FILTRARE (ex. TRIMISE, TRANSFER CONFIRMAT)
+        When se actioneaza butonul FILTRE
+        When se utilizeaza, pe rand, fiecare optiune de filtrare
+        When se actioneaza butonul FILTREAZA
+        Then in lista de rezultate sunt afisate doar entitatile care se incadreaza optiunilor de filtrare utilizate
+
+      @MR_FG_007
+      Scenario: Testarea functionalitatii RESETEAZA FILTRE
+        Given utilizatorul este autentificat cu rolul de OPERATOR si se afla pe una dintre paginile care dispun de functionalitatea de filtrare, pe care sunt afisate rezultate deja filtrate
+        When se actioneaza butonul FILTRE
+        When din fereastra nou afisata se actioneaza butonul RESETEAZA
+        Then toate optiunile de filtrare sunt inactive
+
+      @MR_FG_008
+      Scenario: Testarea functionalitatii VERIFICA MESAJE aflate in asteptare
+        Given utilizatorul este autentificat cu rolul de OPERATOR si are cel putin un mesaj aflat in asteptare (neincarcata pe pagina)
+        When se acceseaza fiecare pagina care dispunde de functionalitatea de referinta
+        When se actioneaza butonul VERIFICA MESAJE
+        Then pe ecran este emis un mesaj care indica faptul ca mesajul a fost incarcat cu succes si mesajul de referinta se afla in lista de documente
+      @MR_FG_009
+      Scenario: Testarea functionalitatii VERIFICA MESAJE inexistente
+        Given utilizatorul este autentificat cu rolul de OPERATOR si NU are mesaje aflate in asteptare
+        When se acceseaza fiecare pagina care dispunde de functionalitatea de referinta
+        When se actioneaza butonul VERIFICA MESAJE
+        Then pe ecran este emis un mesaj care indica faptul ca in prezent NU exista MESAJE aflate in asteptare
+      @MR_FG_010
+      Scenario: Testarea functionalitatii SORTARE LISTA
+        Given utilizatorul este autentificat cu rolul de OPERATOR si paginile care au disponibila functia SORTARE (ex. DOCUMENTE PRIMITE, TRIMISE) sunt populate cu un numar minim de elemente, astfel incat aplicarea functionalitatii 'SORTARE' sa fie relevanta
+        When se acceseaza paginile care au disponibila functia SORTARE (ex. DOCUMENTE PRIMITE, TRIMISE)
+        When se acceseaza, pe rand, capetele de tabel ale rubricilor care au disponibila functia de SORTARE
+        Then lista de rezultate este sortata conform optiunilor alese
