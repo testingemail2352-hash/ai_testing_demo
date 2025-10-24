@@ -38,7 +38,16 @@ class AITestingFramework:
             if stream:
                 return response
             return response['message']['content']
+
         except Exception as e:
+            # Mesaj clar și colorat în consolă
+            print("\n" + "=" * 80)
+            print("❌ EROARE LA MISTRAL ❌".center(80))
+            print("-" * 80)
+            print(f"Detalii: {str(e)}")
+            print("=" * 80 + "\n")
+
+            # Returnează mesajul de eroare ca text (pentru a fi prins mai sus)
             return f"Error calling Mistral: {str(e)}"
 
     def generate_gherkin_from_romanian(self, description_ro):
@@ -51,13 +60,14 @@ class AITestingFramework:
         Returns:
             str: Scenarii Gherkin generate
         """
-        with open("templates/gherkin_template.txt", "r", encoding="utf-8") as f:
-            template_text = f.read()
+        # with open("templates/gherkin_template.txt", "r", encoding="utf-8") as f:
+        #     template_text = f.read()
+        # {template_text}  - trebuie trecut la linia de cod nr. 70
 
         prompt = f"""
         Folosind **STRICT** structura și stilul următorului șablon Gherkin:
 
-        {template_text}
+       
 
         Generează scenarii de test pentru următoarea descriere:
         "{description_ro}"
